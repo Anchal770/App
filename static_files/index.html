@@ -1,0 +1,69 @@
+<!Doctype html>
+<head>
+    <title>App</title>
+    
+</head>
+    <style>
+        .styling{
+            position: absolute;
+            top:0;
+            bottom:0;
+            right:0;
+            left:0;
+            margin:auto;
+            width:50%;
+            height:50%;
+        }
+    </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#getCity').click(function(){
+            const requestURL = '/user/'+ $('#inputsm').val();
+            console.log(requestURL);
+            $.ajax({
+                url: requestURL,
+                type:'GET',
+                dataType :'json',
+                success : (data) => {
+                    if(data){
+                        console.log(data);
+                        $('#status').html("" +data.id);
+                        $('#name').html(""+data.name);
+                }
+            },
+            error : function(){
+                $('#status').html("Error : No data found");
+                $('#name').html("");
+            }
+        });
+    });
+});
+</script>
+<body>
+    <form class="styling" style="Background-color:aliceblue;">
+        <div class="form-group">
+            <label for="inputsm">Enter City</label>
+            <input class="form-control input-sm col-sm-6" id="inputsm" type="text">
+            </div>
+            <div>  
+                <input type="button" class="btn btn-info" value="Get Details" id="getCity"><span style="color:red ;font-size:12px"> *Please enter the city name starting with capital letter</span> 
+            </div>
+            <div style="padding-top:2%;">
+                <span id="status"><small></small></span>
+                <span id="name"><small></small></span>
+            </div>
+    </form>
+</body>
+</html>
